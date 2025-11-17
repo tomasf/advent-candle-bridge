@@ -2,7 +2,11 @@ import Foundation
 import Cadova
 
 func generateModels(for configuration: Configuration) async {
-    await Project(root: configuration.name, options: .metadata(
+    let packageURL = URL(filePath: #filePath)
+        .deletingLastPathComponent().deletingLastPathComponent()
+    let outputRoot = packageURL.appending(path: "Models", directoryHint: .isDirectory)
+
+    await Project(root: outputRoot.appending(path: configuration.name), options: .metadata(
         title: "Nordic Advent Candle Bridge (\(configuration.name)",
         description: "Classic Nordic-style electric advent candle bridge",
         author: "Tomas Wincent Franzén",
